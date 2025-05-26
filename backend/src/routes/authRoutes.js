@@ -1,5 +1,5 @@
 import express from "express";
-import User from "../models/User.js";
+import User from "../models/User";
 import jwt from "jsonwebtoken";
 import "dotenv/config";
 
@@ -66,8 +66,9 @@ router.post("/login", async (req, res) => {
         // verify infos provided
         if (!email || !password) return res.status(400).json({ message: "All fields are required" });
 
-        // verif useer exist
+        // verif user exist
         const user = await User.findOne({ email });
+        console.log(user);
         const isPasswordCorrect = await user.comparePassword(password);
 
         // check if password is correct
